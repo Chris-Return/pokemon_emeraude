@@ -1,0 +1,16 @@
+Bonjour! Désolé pour l'attente!
+Bienvenue dans le monde|des POKéMON!
+Je m'appelle SEKO.
+Mais tout le monde ici m'appelle|le PROFESSEUR POKéMON.
+[EVENT]OPENNENUPIOT
+Voici ce qu'on appelle un "POKéMON".
+Ce monde est peuplé de créatures|appelées POKéMON.
+Nous, les humains, vivons avec les|POKéMON. Il nous arrive de jouer|ou de travailler ensemble.
+Et parfois, nous nous réunissons|pour nous affronter au cours de|formidables combats de POKéMON.
+Mais malgré nos liens, nous ne|savons pas tout sur les POKéMON.
+En réalité, il existe d'innombrables|secrets concernant les POKéMON.
+Pour percer les mystères des POKéMON,|je les étudie. C'est|mon métier, je suis chercheur.
+Et toi ?
+[EVENT]CHOOSESEX
+Es-tu un garçon ?|Ou es-tu une fille?
+Très bien.|Comment t'appelles-tu?

@@ -1,0 +1,77 @@
+# ------------ DONNEES D'INITIALISATION -----------------------------------------------
+TITRE_FENETRE = "Pokémon Emeraude Python v0.01"
+SCREEN_WIDTH = 720
+SCREEN_HEIGHT = 480
+BEGIN_SCREEN_GAME = 0
+
+# ------------ DOSSIERS ---------------------------------------------------------------
+MAIN_DIRECTORY = "F:/Python/Pokemon Emeraude"
+
+# ASSETS
+ASSETS_DIRECTORY = MAIN_DIRECTORY + "/assets"
+# -
+ASSETS_MAIN_MENU = ASSETS_DIRECTORY + "/main_menu"
+ASSETS_LOADING_MENU = ASSETS_DIRECTORY +"/loading_menu"
+ASSETS_NEW_GAME = ASSETS_DIRECTORY +"/new_game"
+ASSETS_DIALBOX = ASSETS_DIRECTORY + "/dialogues"
+ASSETS_POKEMONS = ASSETS_DIRECTORY + "/pokemons"
+
+# FONTS
+FONTS_DIRECTORY = MAIN_DIRECTORY + "/font"
+
+# LINES
+LINES_DIRECTORY = MAIN_DIRECTORY + "/lines"
+
+# JSON
+JSON_DIRECTORY = MAIN_DIRECTORY + "/json"
+
+# ------------ FICHIERS ---------------------------------------------------------------
+
+# JSON
+JSON_POKEMON_BASIC_DATA = JSON_DIRECTORY + "/pokedex.json"
+
+# FONTS
+FONT_MAIN_DIALOGBOX = FONTS_DIRECTORY + "/pokemon-emerald.ttf"
+FONT_MAIN_DIALOGBOX_SIZE = 14
+
+# DIALOG
+PROF_SEKO_INTRO_1 = LINES_DIRECTORY + "/prof_seko_intro.txt"
+
+# MISC
+IMG_DIALOGBOX = ASSETS_DIALBOX + "/dialogbox.png"
+IMG_CURSOR_NEXT =  ASSETS_DIALBOX + "/img_defilement_dialog.png"
+
+# MAIN
+LOGO_FENETRE = ASSETS_MAIN_MENU + "/icon.png"
+LOGO_POKEMON_EMERAUDE = ASSETS_MAIN_MENU + "/logo_pokemon_emeraude.png"
+IMG_BACKGROUND_MAIN_MENU_1 = ASSETS_MAIN_MENU + "/rayquaza_1.png"
+IMG_BACKGROUND_MAIN_MENU_2 = ASSETS_MAIN_MENU + "/rayquaza_2.png"
+IMG_POKEMON_TITLE = ASSETS_MAIN_MENU + "/logo_pokemon_emeraude.png"
+IMG_CREDITS = ASSETS_MAIN_MENU + "/credit.png"
+IMG_PRESS_START = ASSETS_MAIN_MENU + "/press_start.png"
+IMG_BRUME = ASSETS_MAIN_MENU + "/brume.png"
+
+# LOADING MENU
+IMG_BACKGROUND_LOADING_SCREEN = ASSETS_LOADING_MENU + "/background.png"
+IMG_NOUVELLE_PARTIE = ASSETS_LOADING_MENU + "/nouvelle_partie.png"
+IMG_OPTIONS = ASSETS_LOADING_MENU + "/options.png"
+IMG_NOUVELLE_PARTIE_INACTIVE = ASSETS_LOADING_MENU + "/nouvelle_partie2.png"
+IMG_OPTIONS_INACTIVE = ASSETS_LOADING_MENU + "/options2.png"
+
+# NEW GAME
+IMG_BACKGROUND_NEW_GAME = ASSETS_NEW_GAME + "/background.png"
+IMG_UP_GRADIANT_NEW_GAME = ASSETS_NEW_GAME + "/up_gradiant.png"
+IMG_PROF_GROUND_NEW_GAME = ASSETS_NEW_GAME + "/prof_ground.png"
+IMG_PROF_SEKO_NEW_GAME = ASSETS_NEW_GAME + "/prof_seko.png"
+IMG_PROF_ALEX_KITCHEN = ASSETS_NEW_GAME + "/gralex_kitchen_reduced.png"
+IMG_POKEBALL_CLASSIC = ASSETS_NEW_GAME + "/pokeball.png"
+IMG_POKEBALL_CLASSIC_OPEN = ASSETS_NEW_GAME + "/pokeball_open.png"
+IMG_POKEBALL_CLASSIC_FULL_OPEN = ASSETS_NEW_GAME + "/pokeball_full_open.png"
+IMG_FLASH_POKEBALL = ASSETS_NEW_GAME + "/flash_"
+
+# POKEMONS
+def GET_FRONT_POKEMON(number):
+    return ASSETS_POKEMONS + "/"+ str(number) + ".gif"
+
+# ------------ LISTE DES EVENEMENTS --------------------------------------------------
+EVENT_OPENNENUPIOT = "OPENNENUPIOT"
