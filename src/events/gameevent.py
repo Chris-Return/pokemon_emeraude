@@ -18,3 +18,9 @@ class GameEvent():
     @abstractmethod
     def get_components(self):
         return self.components
+    
+    def get_active(self):
+        return self.active
+    
+    def check_inputs(self, event):
+        pass

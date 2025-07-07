@@ -18,8 +18,6 @@ class NewGameScreen(GameScreen):
         self.deltatimeprofseko = 0
         self.deltatimeshowdialogbox = 0
 
-        self.dialogbox = DialogSystem(None)
-
         self.up_gradiant = Component(pygame.image.load(IMG_UP_GRADIANT_NEW_GAME))
         self.up_gradiant.get_component().set_alpha(0)
 
@@ -30,13 +28,15 @@ class NewGameScreen(GameScreen):
         self.prof_seko.get_component().set_alpha(0)
         self.prof_seko.set_position((335,80))
 
+        self.dialogbox = DialogSystem(None, self)
+
         self.components = [Component(pygame.image.load(IMG_BACKGROUND_NEW_GAME)),
                            self.up_gradiant,
                            self.prof_ground,
                            self.prof_seko,
                            self.dialogbox]
         
-        self.dialogbox.uploadParagraphs(PROF_SEKO_INTRO_1)
+        self.dialogbox.uploadParagraphs(PROF_SEKO_INTRO_1 if not TEST_MODE else TEST_PROF_SEKO_INTRO_1)
     
     def update(self, deltatime):
         self.update_before_load(deltatime)

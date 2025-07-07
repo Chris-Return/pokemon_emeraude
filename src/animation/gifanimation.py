@@ -14,8 +14,6 @@ class GifAnimation(Component):
         except Exception:
             pass
 
-        print("Nenupiot frames : "+str(len(frames)))
-
         self.set_component(None)
         self.active = False
         self.ended = False
@@ -87,3 +85,6 @@ class GifAnimation(Component):
     
     def get_ended(self):
         return self.ended
+    
+    def get_final_frame(self):
+        return self.children[len(self.children)-1]

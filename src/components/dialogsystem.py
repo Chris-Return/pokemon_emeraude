@@ -5,8 +5,9 @@ from src.events.eventmanager import *
 
 class DialogSystem(Component):
 
-    def __init__(self, pycomponent):
+    def __init__(self, pycomponent, parent):
         super().__init__(pycomponent)
+        self.parent = parent
         self.visible = False
         # DEFINIR SI ON PEUT INTERAGIR AVEC LA DIALOGBOX
         self.active = False
@@ -142,7 +143,7 @@ class DialogSystem(Component):
 
     def check_line_content(self):
         if(self.paragraphs[0].__contains__("[EVENT]")):
-            self.game_event = EventManager.getGameEvent(self.paragraphs[0])
+            self.game_event = EventManager.getGameEvent(self.paragraphs[0], self.parent)
             if(self.game_event != None):
                 # SI UN EVENT A ETE DETECTE
                 self.active = False
@@ -150,10 +151,13 @@ class DialogSystem(Component):
                 self.game_event.run()
 
                 # AFFICHER LES BOITES DE DIALOGUES AVEC LE TEXTE
-                for i in range(2):
-                    self.writedTexts[i] = self.actualLines[i]
-                    self.comp_lines[i*2].set_component(self.writer.render(self.writedTexts[i], True, (208,208,200)))
-                    self.comp_lines[i*2+1].set_component(self.getNewLine(self.writedTexts[i]))
+                try:
+                    for i in range(2):
+                        self.writedTexts[i] = self.actualLines[i]
+                        self.comp_lines[i*2].set_component(self.writer.render(self.writedTexts[i], True, (208,208,200)))
+                        self.comp_lines[i*2+1].set_component(self.getNewLine(self.writedTexts[i]))
+                except:
+                    pass
 
                 for comp in self.game_event.get_components():
                     self.children.append(comp)
@@ -169,6 +173,10 @@ class DialogSystem(Component):
         self.writedTexts = ["" for i in range(len(self.actualLines))]
         
     def check_events(self, event):
+        # VERIFIER LES INPUTS DANS LES EVENTS
+        if(self.game_event is not None):
+            self.game_event.check_inputs(event)
+
         if(event.type == pygame.KEYDOWN):
             # APPUI SUR LA TOUCHE W DU CLAVIER
             if(event.key == pygame.K_w and self.visible and not self.event_reading):

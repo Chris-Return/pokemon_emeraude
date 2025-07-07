@@ -2,7 +2,8 @@
 TITRE_FENETRE = "Pokémon Emeraude Python v0.01"
 SCREEN_WIDTH = 720
 SCREEN_HEIGHT = 480
-BEGIN_SCREEN_GAME = 0
+BEGIN_SCREEN_GAME = 2
+TEST_MODE = True
 
 # ------------ DOSSIERS ---------------------------------------------------------------
 MAIN_DIRECTORY = "F:/Python/Pokemon Emeraude"
@@ -36,6 +37,7 @@ FONT_MAIN_DIALOGBOX_SIZE = 14
 
 # DIALOG
 PROF_SEKO_INTRO_1 = LINES_DIRECTORY + "/prof_seko_intro.txt"
+TEST_PROF_SEKO_INTRO_1 = LINES_DIRECTORY + "/test_prof_seko_intro.txt"
 
 # MISC
 IMG_DIALOGBOX = ASSETS_DIALBOX + "/dialogbox.png"
@@ -68,6 +70,17 @@ IMG_POKEBALL_CLASSIC = ASSETS_NEW_GAME + "/pokeball.png"
 IMG_POKEBALL_CLASSIC_OPEN = ASSETS_NEW_GAME + "/pokeball_open.png"
 IMG_POKEBALL_CLASSIC_FULL_OPEN = ASSETS_NEW_GAME + "/pokeball_full_open.png"
 IMG_FLASH_POKEBALL = ASSETS_NEW_GAME + "/flash_"
+IMG_CHOIX_GARCON_FILLE = ASSETS_NEW_GAME + "/fenetre_choix_sexe.png"
+IMG_FLECHE_CHOIX = ASSETS_NEW_GAME + "/fleche_choix.png"
+IMG_PLAYER_MALE = ASSETS_NEW_GAME + "/garcon.png"
+IMG_PLAYER_FEMALE = ASSETS_NEW_GAME + "/fille.png"
+IMG_CLAVIER_OVERLAY = ASSETS_NEW_GAME + "/clavier_overlay.png"
+IMG_CLAVIER_MAJUSCULE = ASSETS_NEW_GAME + "/clavier_majuscule.png"
+IMG_CLAVIER_MINUSCULES = ASSETS_NEW_GAME + "/clavier_minuscules.png"
+IMG_NEW_GAME_SELECT_PLAYER_NAME = ASSETS_NEW_GAME + "/new_game_select_player_name.png"
+IMG_CLAVIER_SIDE_BUTTONS = ASSETS_NEW_GAME + "/clavier_side_buttons.png"
+IMG_LETTER_SELECTION_RED = ASSETS_NEW_GAME + "/letter_selection_red.png"
+IMG_LETTER_SELECTION_WHITE = ASSETS_NEW_GAME + "/letter_selection_white.png"
 
 # POKEMONS
 def GET_FRONT_POKEMON(number):
@@ -75,3 +88,6 @@ def GET_FRONT_POKEMON(number):
 
 # ------------ LISTE DES EVENEMENTS --------------------------------------------------
 EVENT_OPENNENUPIOT = "OPENNENUPIOT"
+EVENT_CHOOSE_SEX = "CHOOSESEX"
+EVENT_SHOW_SEX_CHOICE = "SHOWSEXCHOISE"
+EVENT_WRITE_PLAYER_NAME = "WRITEPLAYERNAME"

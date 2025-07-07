@@ -57,6 +57,3 @@ class EventNenupiot(GameEvent):
     def run(self):
         self.active = True
         self.pokeball_animation.active = True
-
-    def get_active(self):
-        return self.active
