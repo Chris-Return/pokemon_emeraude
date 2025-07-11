@@ -16,3 +16,14 @@ Es-tu un garçon ?|Ou es-tu une fille?
 [EVENT]SHOWSEXCHOISE
 Très bien.|Comment t'appelles-tu?
 [EVENT]WRITEPLAYERNAME
+Tu t'appelles %name ?
+[EVENT]SHOWPROFANDNENUPIOT
+Ah, mais c'est vrai !
+Tu es %name! Tu viens d'arriver|à BOURG-EN-VOL, là où j'habite.
+Je m'en souviens, maintenant!
+[EVENT]SHOWDRESSEUR
+Bon, comment te sens-tu?
+Tu es sur le point de|commencer une aventure unique.
+Fais preuve de courage et plonge|dans le monde des POKéMON où|tu vivras de belles aventures,|remplies de rêves et d'amitiés!
+Bien, rejoins-moi plus tard.|Viens me voir au LABO POKéMON.
+[EVENT]REDUCEPLAYER

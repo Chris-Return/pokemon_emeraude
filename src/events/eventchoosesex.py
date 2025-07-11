@@ -30,3 +30,6 @@ class EventChooseSex(GameEvent):
                 
             if(self.parent.prof_ground.get_component().get_alpha() <= 0 and self.parent.prof_seko.get_component().get_alpha() <= 0):
                 self.active = False
+
+    def get_components(self):
+        return [ self.eventNenupiot.nenupiot.get_final_frame() ]

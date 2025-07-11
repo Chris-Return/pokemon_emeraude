@@ -8,6 +8,7 @@ class Component():
         self.children = []
         self.visible = True
         self.position = (0,0)
+        self.game_event = None
 
     def get_visible(self):
         return self.visible
@@ -32,4 +33,7 @@ class Component():
         self.position = position
 
     def get_children(self):
-        return self.children
+        try:
+            return self.children + self.game_event.get_components()
+        except:
+            return self.children

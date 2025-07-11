@@ -1,5 +1,6 @@
 import pygame
 import time
+import os
 from src.gamescreen.gamemanager import GameManager
 from src.constants.constants import *
 
@@ -14,12 +15,26 @@ def showComponent(component):
         for child_component in component.get_children():
             showComponent(child_component)
 
-        
+# Compter toutes les lignes de codes du projet
+def compter_lignes_dossier(dossier):
+    total_lignes = 0
+    for racine, _, fichiers in os.walk(dossier):
+        for fichier in fichiers:
+            if fichier.endswith(".py"):
+                chemin_fichier = os.path.join(racine, fichier)
+                with open(chemin_fichier, "r", encoding="utf-8", errors="ignore") as f:
+                    lignes = f.readlines()
+                    total_lignes += len(lignes)
+    return total_lignes
+
+dossier_src = MAIN_DIRECTORY + "/src"
+print(f"Total de lignes de code : {compter_lignes_dossier(dossier_src)}")
 
 # ------------ INITIALISATION ---------------------------------------------------------------
 pygame.init()
 pygame.display.set_caption(TITRE_FENETRE)
 pygame.display.set_icon(pygame.image.load(LOGO_FENETRE))
+
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 game_manager = GameManager()
 # ------------ FIN INITIALISATION -----------------------------------------------------------

@@ -1,9 +1,3 @@
-Ah, c'est une vidéo Tiktok ?
-Passons directement à l'étape|que les abonnés n'ont pas vu alors.
-On a animé un nénupiot qui|sort de sa pokéball.
-[EVENT]OPENNENUPIOT
-On a codé le choix du sexe|que vous pouvez voir ici.
-[EVENT]CHOOSESEX
-[EVENT]SHOWSEXCHOISE
-Et on a commencé l'étape qui|permettra de renseigner un nom|de joueur.
+C'est parti pour les tests !
 [EVENT]WRITEPLAYERNAME
+Tu t'appelles %name ?

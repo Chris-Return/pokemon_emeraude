@@ -29,15 +29,22 @@ class NewGameScreen(GameScreen):
         self.prof_seko.set_position((335,80))
 
         self.dialogbox = DialogSystem(None, self)
+        self.player_sprite = Component(None)
+        self.player_sprite.set_position((510,110))
 
         self.components = [Component(pygame.image.load(IMG_BACKGROUND_NEW_GAME)),
                            self.up_gradiant,
                            self.prof_ground,
-                           self.prof_seko,
-                           self.dialogbox]
+                           self.prof_seko]
         
         self.dialogbox.uploadParagraphs(PROF_SEKO_INTRO_1 if not TEST_MODE else TEST_PROF_SEKO_INTRO_1)
-    
+
+        if(TEST_MODE):
+            self.deltatimebeforeload = 2025
+            self.up_gradiant.get_component().set_alpha(255)
+            self.prof_ground.get_component().set_alpha(255)
+            self.prof_seko.get_component().set_alpha(255)
+
     def update(self, deltatime):
         self.update_before_load(deltatime)
         self.update_gradiant(deltatime)
@@ -81,3 +88,6 @@ class NewGameScreen(GameScreen):
 
     def check_events(self, event):
         self.dialogbox.check_events(event)
+
+    def get_components(self):
+        return self.components + [self.player_sprite, self.dialogbox]

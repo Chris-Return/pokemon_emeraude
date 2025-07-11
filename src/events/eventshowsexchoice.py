@@ -5,8 +5,9 @@ from src.data.playerdata import *
 import pygame
 
 class EventShowSexChoice(GameEvent):
-    def __init__(self):
+    def __init__(self, parent):
         super().__init__()
+        self.parent = parent
         self.components = [ Component(pygame.image.load(IMG_CHOIX_GARCON_FILLE)),
                             Component(pygame.image.load(IMG_FLECHE_CHOIX)),
                             Component(pygame.image.load(IMG_PLAYER_MALE)),
@@ -36,6 +37,8 @@ class EventShowSexChoice(GameEvent):
                 PlayerData.sex = "M"
 
             if(event.key == pygame.K_RETURN or event.key == pygame.K_w):
+                self.parent.player_sprite = Component(pygame.image.load(IMG_PLAYER_FEMALE if PlayerData.sex == "F" else IMG_PLAYER_MALE))
+                self.parent.player_sprite.set_position((510,110))
                 self.components[0].set_visible(False)
                 self.components[1].set_visible(False)
                 self.active = False

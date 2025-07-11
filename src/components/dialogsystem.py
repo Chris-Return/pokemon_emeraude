@@ -2,6 +2,7 @@ import pygame
 from src.components.component import *
 from src.constants.constants import *
 from src.events.eventmanager import *
+from src.components.dialogvariables import *
 
 class DialogSystem(Component):
 
@@ -15,7 +16,6 @@ class DialogSystem(Component):
         # BACKGROUND DE LA BOX
         self.img_dialogbox = Component(pygame.image.load(IMG_DIALOGBOX))
         self.img_dialogbox.set_position((0,335))
-        self.game_event = None
 
         # GENERATEUR DE ZONES DE TEXTE
         self.writer = pygame.font.Font(FONT_MAIN_DIALOGBOX, FONT_MAIN_DIALOGBOX_SIZE)
@@ -56,8 +56,10 @@ class DialogSystem(Component):
     def update_event(self, deltatime):
         if(self.event_reading):
             self.game_event.update(deltatime)
+            # QUAND L'EVENT VIENT TOUT JUSTE DE SE DESACTIVER
             if(not self.game_event.get_active()):
                 self.event_reading = False
+                self.next_line()
 
     def update_text(self):
         # Si tous les paragraphes n'ont pas été écrits
@@ -142,6 +144,7 @@ class DialogSystem(Component):
             self.active = False
 
     def check_line_content(self):
+        self.paragraphs[0] = DialogVariables.get_variable(self.paragraphs[0])
         if(self.paragraphs[0].__contains__("[EVENT]")):
             self.game_event = EventManager.getGameEvent(self.paragraphs[0], self.parent)
             if(self.game_event != None):
@@ -158,9 +161,6 @@ class DialogSystem(Component):
                         self.comp_lines[i*2+1].set_component(self.getNewLine(self.writedTexts[i]))
                 except:
                     pass
-
-                for comp in self.game_event.get_components():
-                    self.children.append(comp)
 
                 return False
         
@@ -195,5 +195,5 @@ class DialogSystem(Component):
                     self.active = False
 
     def get_component(self):
-        return super().get_component()
+        return super().get_component() + EventManager.get_game_components()
         
