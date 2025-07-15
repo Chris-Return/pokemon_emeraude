@@ -3,9 +3,12 @@ import time
 import os
 from src.gamescreen.gamemanager import GameManager
 from src.constants.constants import *
+from src.data.datamanager import DataManager
 
 # RECURSIVE QUI ME PERMETTRA D'AFFICHER LES COMPOSANTS ENFANTS
 def showComponent(component):
+    # Instruction pour une future caméra
+    # screen.blit(sprite.image, camera.apply(sprite.rect))
     if(component.get_visible()):
         try:
             screen.blit(component.get_component(), component.get_position())
@@ -29,6 +32,9 @@ def compter_lignes_dossier(dossier):
 
 dossier_src = MAIN_DIRECTORY + "/src"
 print(f"Total de lignes de code : {compter_lignes_dossier(dossier_src)}")
+
+# Charger les données
+DataManager.load()
 
 # ------------ INITIALISATION ---------------------------------------------------------------
 pygame.init()

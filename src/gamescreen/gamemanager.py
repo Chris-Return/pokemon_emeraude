@@ -1,6 +1,8 @@
-from src.gamescreen.menuscreen import *
-from src.gamescreen.loadingmenu import *
-from src.gamescreen.newgame import *
+from src.gamescreen.menuscreen import MenuScreen
+from src.gamescreen.loadingmenu import LoadingMenu
+from src.gamescreen.newgame import NewGameScreen
+from src.gamescreen.ingamescreen import InGameScreen
+from src.constants.constants import *
 from src.data.jsondata import JSONData
 
 class GameManager:
@@ -20,6 +22,7 @@ class GameManager:
             case 0: return MenuScreen()
             case 1: return LoadingMenu()
             case 2: return NewGameScreen()
+            case 3: return InGameScreen()
             case _: 
                 print("Aucun écran ne correspond au numéro : "+number)
                 return 0

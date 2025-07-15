@@ -49,7 +49,7 @@ class WritableComponent():
 class EventWritePlayerName(GameEvent):
     def __init__(self):
         super().__init__()
-        self.number_of_characters_max = 10
+        self.number_of_characters_max = 15
         self.majuscules = [ ("A", "B", "C", "D", "", "E", "F", "G", "H", "", ".", "SWITCH"),
                             ("I", "J", "K", "L", "", "M", "N", "O", "P", "", ",", "SWITCH"),
                             ("Q", "R", "S", "T", "", "U", "V", "W", "X", "", " ", "RETURN"),
@@ -70,7 +70,7 @@ class EventWritePlayerName(GameEvent):
         self.selector_position = (0,0)
 
         # INITIALISATION DES ELEMENTS VISUELS DE SAISIE
-        self.elements_visuels = [WritableComponent(self.writer, (310 + (i*20),140)) for i in range(self.number_of_characters_max)]
+        self.elements_visuels = [WritableComponent(self.writer, (250 + (i*20),140)) for i in range(self.number_of_characters_max)]
 
         for comp in self.elements_visuels:
             for all_comp in comp.get_components():
@@ -96,7 +96,7 @@ class EventWritePlayerName(GameEvent):
         self.components[4].set_position((550,225))
         self.components[5].set_position((94, 243))
         self.components[6].set_position((94, 243))
-        self.components[7].set_position((260, 150))
+        self.components[7].set_position((200, 150))
         self.components[8].set_position((562, 231))
 
         # Tous les composants qui possèdent un canal Alpha doivent apparaître
@@ -217,8 +217,8 @@ class EventWritePlayerName(GameEvent):
         self.deltatime_accumulator_cursor += deltatime
         if(self.deltatime_accumulator_cursor > 20):
             self.components[7].set_position((self.components[7].get_position()[0]+1, 150))
-            if(self.components[7].get_position()[0] > 280):
-                self.components[7].set_position((260, 150))
+            if(self.components[7].get_position()[0] > 220):
+                self.components[7].set_position((200, 150))
             self.deltatime_accumulator_cursor = 0
 
     def modify_name(self):

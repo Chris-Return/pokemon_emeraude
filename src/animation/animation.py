@@ -1,9 +1,10 @@
-import pygame
+
 from src.components.component import *
 
 class Animation(Component):
+
     def __init__(self, children):
-        self.set_component(None)
+        super().__init__(None)
         self.active = False
         self.ended = False
         self.deltatime_accumulator = 0
@@ -16,8 +17,11 @@ class Animation(Component):
         self.loop = False
         self.visible = True
 
-        for comp in self.children:
-            comp.set_visible(False)
+        try:
+            for comp in self.children:
+                comp.set_visible(False)
+        except:
+            pass
 
     def update(self, deltatime):
         if(self.active):
@@ -44,18 +48,30 @@ class Animation(Component):
                 self.deltatime_accumulator = 0
 
     def dispose(self):
-        for comp in self.children:
-            comp.set_visible(False)
+        try:
+            for comp in self.children:
+                comp.set_visible(False)
+        except:
+            pass
 
     def play_loop(self):
+        self.active = True
         self.loop = True
     
     def set_position(self, position):
-        for comp in self.children:
-            comp.set_position(position)
+        try:
+            for comp in self.children:
+                comp.set_position(position)
+        except:
+            pass
 
     def play(self):
         self.active = True
+
+    def stop(self):
+        self.active = False
+        for frame in self.children:
+            frame.set_visible(False)
 
     def set_speed(self, speed):
         self.animation_speed = speed

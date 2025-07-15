@@ -2,8 +2,8 @@
 TITRE_FENETRE = "Pokémon Emeraude Python v0.01"
 SCREEN_WIDTH = 720
 SCREEN_HEIGHT = 480
-BEGIN_SCREEN_GAME = 0
-TEST_MODE = False
+BEGIN_SCREEN_GAME = 3
+TEST_MODE = True
 
 # ------------ DOSSIERS ---------------------------------------------------------------
 MAIN_DIRECTORY = "F:/Python/Pokemon Emeraude"
@@ -16,6 +16,8 @@ ASSETS_LOADING_MENU = ASSETS_DIRECTORY +"/loading_menu"
 ASSETS_NEW_GAME = ASSETS_DIRECTORY +"/new_game"
 ASSETS_DIALBOX = ASSETS_DIRECTORY + "/dialogues"
 ASSETS_POKEMONS = ASSETS_DIRECTORY + "/pokemons"
+ASSETS_TILESETS = ASSETS_DIRECTORY + "/tilesets"
+ASSETS_CHARACTERS = ASSETS_DIRECTORY + "/characters"
 
 # FONTS
 FONTS_DIRECTORY = MAIN_DIRECTORY + "/font"
@@ -26,6 +28,8 @@ LINES_DIRECTORY = MAIN_DIRECTORY + "/lines"
 # JSON
 JSON_DIRECTORY = MAIN_DIRECTORY + "/json"
 
+# MAPS
+MAPS_DIRECTORY = MAIN_DIRECTORY + "/maps"
 # ------------ FICHIERS ---------------------------------------------------------------
 
 # JSON
@@ -95,3 +99,14 @@ EVENT_SHOW_SEX_CHOICE = "SHOWSEXCHOISE"
 EVENT_WRITE_PLAYER_NAME = "WRITEPLAYERNAME"
 EVENT_SHOW_PROF_AND_NENUPIOT = "SHOWPROFANDNENUPIOT"
 EVENT_SHOW_DRESSEUR = "SHOWDRESSEUR"
+# ------------ FIN LISTE DES EVENEMENTS ----------------------------------------------
+
+# TILESETS
+TILESET_OUTDOORS = ASSETS_TILESETS + "/outdoors.png"
+TILESET_INDOORS = ASSETS_TILESETS + "/indoors.png"
+
+# MAPS
+MAP_DE_CALIBRAGE = MAPS_DIRECTORY + "/map_de_calibrage.map"
+
+# CHARACTERS
+ANIMATION_BUNDLE_PLAYER_MALE = ASSETS_CHARACTERS + "/player_male.png"
