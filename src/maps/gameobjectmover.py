@@ -1,14 +1,16 @@
+from src.maps.mapanalyser import MapAnalyser
+from src.constants.constants import *
 
 class GameObjectMover():
     def __init__(self):
         self.stack_of_objects = {}
         self.destination_stack = {}
         self.deltatime_accumulator = 0
-        self.speed = 1
+        self.speed = 2
 
     def update(self, deltatime):
         self.deltatime_accumulator += deltatime
-        if(self.deltatime_accumulator > 5):
+        if(self.deltatime_accumulator > 7):
             to_remove = []
 
             # EFFECTUER LES DEPLACEMENTS NECESSAIRES
@@ -21,11 +23,23 @@ class GameObjectMover():
                     if(object.position[1] != self.destination_stack[object][1]):
                             object.set_position((object.position[0], object.position[1] + (self.speed if object.position[1] < self.destination_stack[object][1] else -self.speed)))
             self.deltatime_accumulator = 0
-            
-            # ENLEVER LES ELEMENTS QUI ONT TERMINÉ LEUR DEPLACEMENT
+
             for element in to_remove:
+                self.define_element_position(element)
+                # ENLEVER LES ELEMENTS QUI ONT TERMINÉ LEUR DEPLACEMENT
                 self.stack_of_objects[element].pop(0)
                 self.check_destination(element)
+
+    def define_element_position(self, element):
+        # VALIDER LE DEPLACEMENT
+        if(self.stack_of_objects[element][0] == 0):
+            element.set_map_position((element.get_map_position()[0], element.get_map_position()[1]+1))
+        elif(self.stack_of_objects[element][0] == 1):
+            element.set_map_position((element.get_map_position()[0], element.get_map_position()[1]-1))
+        elif(self.stack_of_objects[element][0] == 2):
+            element.set_map_position((element.get_map_position()[0]-1, element.get_map_position()[1]))
+        elif(self.stack_of_objects[element][0] == 3):
+            element.set_map_position((element.get_map_position()[0]+1, element.get_map_position()[1]))
 
     def add_object_to_move(self, object, tab_directions):
         object.character_animation.play()
@@ -34,21 +48,21 @@ class GameObjectMover():
         self.check_destination(object)
         
     def check_destination(self, object):
+        try:
+            object.character_animation.set_direction(self.stack_of_objects[object][0])
+        except:
+            pass
+        
         # SI IL Y A ENCORE DES DESTINATIONS
-        if(len(self.stack_of_objects[object]) > 0):
+        if(len(self.stack_of_objects[object]) > 0 and MapAnalyser.check_move(object, self.stack_of_objects[object][0])):
             if(self.stack_of_objects[object][0] == 0):
-                self.destination_stack[object] = (object.position[0],object.position[1]+(16*3))
+                self.destination_stack[object] = (object.position[0],object.position[1]+(16*SCREEN_SCALE))
             elif(self.stack_of_objects[object][0] == 1):
-                self.destination_stack[object] = (object.position[0],object.position[1]-(16*3))
+                self.destination_stack[object] = (object.position[0],object.position[1]-(16*SCREEN_SCALE))
             elif(self.stack_of_objects[object][0] == 2):
-                self.destination_stack[object] = (object.position[0]-(16*3),object.position[1])
+                self.destination_stack[object] = (object.position[0]-(16*SCREEN_SCALE),object.position[1])
             elif(self.stack_of_objects[object][0] == 3):
-                self.destination_stack[object] = (object.position[0]+(16*3),object.position[1])
-            try:
-                object.character_animation.set_direction(self.stack_of_objects[object][0])
-            except:
-                print("Impossible de modifier la direction du personnage")
+                self.destination_stack[object] = (object.position[0]+(16*SCREEN_SCALE),object.position[1])
         else:
             object.input_active = True
-            #object.character_animation.stop()
             self.stack_of_objects.pop(object)

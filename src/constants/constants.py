@@ -1,7 +1,8 @@
 # ------------ DONNEES D'INITIALISATION -----------------------------------------------
 TITRE_FENETRE = "Pokémon Emeraude Python v0.01"
-SCREEN_WIDTH = 720
-SCREEN_HEIGHT = 480
+SCREEN_SCALE = 3
+SCREEN_WIDTH = 240 * SCREEN_SCALE
+SCREEN_HEIGHT = 160 * SCREEN_SCALE
 BEGIN_SCREEN_GAME = 3
 TEST_MODE = True
 
@@ -107,6 +108,8 @@ TILESET_INDOORS = ASSETS_TILESETS + "/indoors.png"
 
 # MAPS
 MAP_DE_CALIBRAGE = MAPS_DIRECTORY + "/map_de_calibrage.map"
+MAP_ROUTE_101 = MAPS_DIRECTORY + "/route_101.map"
+MAP_BOURG_EN_VOL = MAPS_DIRECTORY + "/bourg_en_vol.map"
 
 # CHARACTERS
 ANIMATION_BUNDLE_PLAYER_MALE = ASSETS_CHARACTERS + "/player_male.png"

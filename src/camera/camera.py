@@ -1,14 +1,21 @@
-import pygame
+from src.constants.constants import *
 
 class Camera:
-    def __init__(self, width, height):
-        self.offset = pygame.Vector2(0, 0)
-        self.width = width
-        self.height = height
 
-    def apply(self, target_rect):
-        return target_rect.move(-self.offset.x, -self.offset.y)
+    camera_position = (0,0)
 
-    def move_to(self, target):
-        self.offset.x = target.centerx - self.width // 2
-        self.offset.y = target.centery - self.height // 2
+    def __init__(self):
+        pass
+    
+    @staticmethod
+    def apply(self, position):
+        return (position[0] + Camera.camera_position[0], position[1] + Camera.camera_position[1])
+    
+    @staticmethod
+    def get_position():
+        return Camera.camera_position
+    
+    @staticmethod
+    def set_position(position):
+        new_position = (position[0] + 25 - SCREEN_WIDTH/2, position[1] + 25 - SCREEN_HEIGHT/2)
+        Camera.camera_position = new_position

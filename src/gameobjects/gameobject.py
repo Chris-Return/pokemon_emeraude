@@ -10,3 +10,9 @@ class GameObject(Component):
 
     def update(self, deltatime):
         pass
+
+    def get_map_position(self):
+        return self.map_position
+    
+    def set_map_position(self, position):
+        self.map_position = position

@@ -25,7 +25,7 @@ class Component():
     def set_component(self, new_component):
         self.component = new_component
         try:
-            self.component = pygame.transform.scale_by(self.component, 3)
+            self.component = pygame.transform.scale_by(self.component, SCREEN_SCALE)
         except Exception:
             pass
     

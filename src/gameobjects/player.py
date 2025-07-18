@@ -2,6 +2,7 @@ from src.gameobjects.gameobject import GameObject
 from src.animation.gridanimation import GridAnimation
 from src.constants.constants import *
 from src.maps.gameobjectmover import GameObjectMover
+from src.camera.camera import Camera
 import pygame
 
 class Player(GameObject):
@@ -10,6 +11,7 @@ class Player(GameObject):
         self.input_active = True
         self.character_animation = GridAnimation(ANIMATION_BUNDLE_PLAYER_MALE)
         self.character_animation.animation_speed = 150
+        self.excent = (4,-16)
         self.game_object_mover = GameObjectMover()
 
     def update(self, deltatime):
@@ -22,6 +24,17 @@ class Player(GameObject):
         visible_component = self.character_animation.get_component()
         visible_component.set_position(self.get_position())
         return visible_component
+    
+    def set_position(self, position):
+        self.position = position
+        Camera.set_position(position)
+
+    def teleport_at_map_position(self, position):
+        self.set_position((position[0]*16*SCREEN_SCALE, position[1]*16*SCREEN_SCALE))
+        self.set_map_position(position)
+
+    def get_position(self):
+        return (self.excent[0] + self.position[0], self.excent[1] + self.position[1])
     
     def check_inputs(self, event):
         pass

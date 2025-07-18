@@ -4,6 +4,7 @@ import os
 from src.gamescreen.gamemanager import GameManager
 from src.constants.constants import *
 from src.data.datamanager import DataManager
+from src.camera.camera import Camera
 
 # RECURSIVE QUI ME PERMETTRA D'AFFICHER LES COMPOSANTS ENFANTS
 def showComponent(component):
@@ -11,7 +12,7 @@ def showComponent(component):
     # screen.blit(sprite.image, camera.apply(sprite.rect))
     if(component.get_visible()):
         try:
-            screen.blit(component.get_component(), component.get_position())
+            screen.blit(component.get_component(), (component.get_position()[0] - Camera.get_position()[0], component.get_position()[1] - Camera.get_position()[1]))
         except Exception:
             pass
 
@@ -50,6 +51,9 @@ begin_time_millis = round(time.time() * 1000)
 end_time_millis = round(time.time() * 1000)
 # ------------ FIN DECLARATION DE LA GESTION DU TEMPS ---------------------------------------
 
+clock = pygame.time.Clock()
+FPS_CAP = 100
+
 # BOUCLE DE GAMEPLAY
 while(True):
     # PERMETTRE AUX ELEMENTS SE METTRE A JOUR EN FONCTION DU TEMPS
@@ -74,5 +78,8 @@ while(True):
         if(event.type == pygame.QUIT):
             pygame.quit()
 
+    # Supprimez cette ligne si vous ne voulez pas de FDP MAX, ou augmentez manuellement plus haut la valeur du
+    # FPS CAP
+    clock.tick(FPS_CAP)
     # TEMPS POUR ARRIVER EN FIN DE BOUCLE
     end_time_millis = round(time.time() * 1000)
