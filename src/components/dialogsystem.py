@@ -1,8 +1,8 @@
 import pygame
-from src.components.component import *
-from src.constants.constants import *
-from src.events.eventmanager import *
-from src.components.dialogvariables import *
+from src.components.component import Component
+from src.constants.constants import IMG_DIALOGBOX, FONT_MAIN_DIALOGBOX, FONT_MAIN_DIALOGBOX_SIZE, IMG_CURSOR_NEXT
+from src.events.eventmanager import EventManager
+from src.components.dialogvariables import DialogVariables
 
 class DialogSystem(Component):
 

@@ -1,0 +1,9 @@
+%behav:
+say "Je suis ton premier PNJ !|Coucou Tiktok :3
+movement true
+direction true
+movement_length 2
+flag #firstpng
+
+%behav2:
+say "Pars à l'aventure mon ami.|Le monde est si grand !

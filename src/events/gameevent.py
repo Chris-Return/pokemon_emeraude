@@ -1,21 +1,20 @@
-import pygame
-from abc import abstractmethod
 
 class GameEvent():
     
-    def __init__(self):
+    def __init__(self, parent):
         self.active = False
         self.components = []
+        self.type = None
+        self.parent = parent
+        self.map_freezer = True
+        self.dead = False
 
-    @abstractmethod
     def update(self, deltatime):
         pass
 
-    @abstractmethod
     def run(self):
         self.active = True
 
-    @abstractmethod
     def get_components(self):
         return self.components
     
@@ -24,3 +23,12 @@ class GameEvent():
     
     def check_inputs(self, event):
         pass
+
+    def is_map_freezer(self):
+        return self.map_freezer
+    
+    def is_dead(self):
+        return self.dead
+    
+    def set_dead(self, dead):
+        self.dead = dead

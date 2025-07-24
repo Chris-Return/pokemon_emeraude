@@ -26,6 +26,7 @@ class GifAnimation(Component):
         self.dispose_on_end = False
         self.loop = False
         self.visible = True
+        self.sort_number = 0
 
         for comp in self.children:
             comp.set_visible(False)

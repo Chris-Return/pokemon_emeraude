@@ -1,5 +1,6 @@
 from src.maps.mapanalyser import MapAnalyser
-from src.constants.constants import *
+from src.constants.constants import SCREEN_SCALE
+from src.gameobjects.player import Player
 
 class GameObjectMover():
     def __init__(self):
@@ -25,21 +26,13 @@ class GameObjectMover():
             self.deltatime_accumulator = 0
 
             for element in to_remove:
-                self.define_element_position(element)
+                MapAnalyser.define_element_position(element, self.stack_of_objects[element][0])
                 # ENLEVER LES ELEMENTS QUI ONT TERMINÉ LEUR DEPLACEMENT
+                if(not isinstance(element, Player)):
+                    element.get_animation().stop()
+                    
                 self.stack_of_objects[element].pop(0)
                 self.check_destination(element)
-
-    def define_element_position(self, element):
-        # VALIDER LE DEPLACEMENT
-        if(self.stack_of_objects[element][0] == 0):
-            element.set_map_position((element.get_map_position()[0], element.get_map_position()[1]+1))
-        elif(self.stack_of_objects[element][0] == 1):
-            element.set_map_position((element.get_map_position()[0], element.get_map_position()[1]-1))
-        elif(self.stack_of_objects[element][0] == 2):
-            element.set_map_position((element.get_map_position()[0]-1, element.get_map_position()[1]))
-        elif(self.stack_of_objects[element][0] == 3):
-            element.set_map_position((element.get_map_position()[0]+1, element.get_map_position()[1]))
 
     def add_object_to_move(self, object, tab_directions):
         object.character_animation.play()
@@ -55,6 +48,7 @@ class GameObjectMover():
         
         # SI IL Y A ENCORE DES DESTINATIONS
         if(len(self.stack_of_objects[object]) > 0 and MapAnalyser.check_move(object, self.stack_of_objects[object][0])):
+            MapAnalyser.lock_future_position(object, self.stack_of_objects[object][0])
             if(self.stack_of_objects[object][0] == 0):
                 self.destination_stack[object] = (object.position[0],object.position[1]+(16*SCREEN_SCALE))
             elif(self.stack_of_objects[object][0] == 1):
@@ -66,3 +60,5 @@ class GameObjectMover():
         else:
             object.input_active = True
             self.stack_of_objects.pop(object)
+            if(not isinstance(object, Player)):
+                object.character_animation.stop()

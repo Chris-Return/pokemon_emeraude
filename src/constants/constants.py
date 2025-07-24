@@ -5,6 +5,10 @@ SCREEN_WIDTH = 240 * SCREEN_SCALE
 SCREEN_HEIGHT = 160 * SCREEN_SCALE
 BEGIN_SCREEN_GAME = 3
 TEST_MODE = True
+NO_FRAME = False
+TRANSPARENT = False
+
+INTERFACE_SORT_LEVEL = 10
 
 # ------------ DOSSIERS ---------------------------------------------------------------
 MAIN_DIRECTORY = "F:/Python/Pokemon Emeraude"
@@ -31,6 +35,11 @@ JSON_DIRECTORY = MAIN_DIRECTORY + "/json"
 
 # MAPS
 MAPS_DIRECTORY = MAIN_DIRECTORY + "/maps"
+
+# CONFIG
+CONFIG_DIRECTORY = MAIN_DIRECTORY + "/config"
+CONFIG_CHARACTER_ANIMATION_DIRECTORY = CONFIG_DIRECTORY + "/character_animation"
+
 # ------------ FICHIERS ---------------------------------------------------------------
 
 # JSON
@@ -107,9 +116,13 @@ TILESET_OUTDOORS = ASSETS_TILESETS + "/outdoors.png"
 TILESET_INDOORS = ASSETS_TILESETS + "/indoors.png"
 
 # MAPS
+MAP_STEREOTYPE = MAPS_DIRECTORY + "/stereotypes.map"
 MAP_DE_CALIBRAGE = MAPS_DIRECTORY + "/map_de_calibrage.map"
 MAP_ROUTE_101 = MAPS_DIRECTORY + "/route_101.map"
 MAP_BOURG_EN_VOL = MAPS_DIRECTORY + "/bourg_en_vol.map"
 
 # CHARACTERS
-ANIMATION_BUNDLE_PLAYER_MALE = ASSETS_CHARACTERS + "/player_male.png"
+def GET_PNG(number):
+    return [ASSETS_CHARACTERS +"/pnj_"+ str(number) + ".png", number]
+
+CHARACTER_STEREOTYPE = CONFIG_CHARACTER_ANIMATION_DIRECTORY + "/stereotypes.chrt"

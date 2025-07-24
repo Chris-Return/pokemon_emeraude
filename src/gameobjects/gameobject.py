@@ -3,9 +3,9 @@ from src.components.component import Component
 class GameObject(Component):
     def __init__(self):
         super().__init__(None)
-        self.active = True
+        self.active = False
         self.map_position = (0,0)
-        self.input_active = False
+        self.input_active = True
         self.character_animation = None
 
     def update(self, deltatime):
@@ -16,3 +16,9 @@ class GameObject(Component):
     
     def set_map_position(self, position):
         self.map_position = position
+
+    def get_input_active(self):
+        return self.input_active
+    
+    def set_active(self, active):
+        self.active = active

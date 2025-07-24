@@ -1,29 +1,18 @@
-from src.gameobjects.gameobject import GameObject
+from src.gameobjects.gameobjectcharacter import GameObjectCharacter
 from src.animation.gridanimation import GridAnimation
-from src.constants.constants import *
-from src.maps.gameobjectmover import GameObjectMover
+from src.constants.constants import SCREEN_SCALE, GET_PNG
 from src.camera.camera import Camera
 import pygame
 
-class Player(GameObject):
-    def __init__(self):
-        super().__init__()
+class Player(GameObjectCharacter):
+    def __init__(self, game_object_mover):
+        super().__init__(game_object_mover, 0)
         self.input_active = True
-        self.character_animation = GridAnimation(ANIMATION_BUNDLE_PLAYER_MALE)
-        self.character_animation.animation_speed = 150
-        self.excent = (4,-16)
-        self.game_object_mover = GameObjectMover()
+        self.character_animation = GridAnimation(GET_PNG(0))
 
     def update(self, deltatime):
         super().update(deltatime)
-        self.character_animation.update(deltatime)
-        self.game_object_mover.update(deltatime)
         self.check_hold_press(pygame.key.get_pressed())
-
-    def get_component(self):
-        visible_component = self.character_animation.get_component()
-        visible_component.set_position(self.get_position())
-        return visible_component
     
     def set_position(self, position):
         self.position = position
@@ -33,15 +22,15 @@ class Player(GameObject):
         self.set_position((position[0]*16*SCREEN_SCALE, position[1]*16*SCREEN_SCALE))
         self.set_map_position(position)
 
-    def get_position(self):
-        return (self.excent[0] + self.position[0], self.excent[1] + self.position[1])
-    
     def check_inputs(self, event):
         pass
 
+    def set_input_active(self, active):
+        self.input_active = active
+
     def check_hold_press(self, key):
         if(self.input_active):
-            if not any(key):
+            if not key[pygame.K_DOWN] and not key[pygame.K_UP] and not key[pygame.K_LEFT] and not key[pygame.K_RIGHT]:
                 self.character_animation.stop()
             if(key[pygame.K_DOWN]):
                 self.game_object_mover.add_object_to_move(self, [0])

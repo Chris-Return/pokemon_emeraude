@@ -9,6 +9,8 @@ class Component():
         self.visible = True
         self.position = (0,0)
         self.game_event = None
+        self.sort_number = 0
+        self.modal = False
 
     def get_visible(self):
         return self.visible
@@ -28,6 +30,9 @@ class Component():
             self.component = pygame.transform.scale_by(self.component, SCREEN_SCALE)
         except Exception:
             pass
+
+    def set_sort_number(self, number):
+        self.sort_number = number
     
     def set_position(self, position):
         self.position = position
@@ -37,3 +42,9 @@ class Component():
             return self.children + self.game_event.get_components()
         except:
             return self.children
+        
+    def get_modal(self):
+        return self.modal
+    
+    def set_modal(self, modal):
+        self.modal = modal

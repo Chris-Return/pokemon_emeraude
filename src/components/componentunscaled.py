@@ -7,6 +7,7 @@ class ComponentUnscaled(Component):
         self.children = []
         self.visible = True
         self.position = (0,0)
+        self.sort_number = 0
 
     def get_visible(self):
         return self.visible

@@ -1,21 +1,39 @@
 from src.maps.gamemap import GameMap
 from src.maps.mapanalyser import MapAnalyser
+from src.maps.mapstereotype import MapStereotype
 from src.constants.constants import *
+from src.maps.gameobjectmover import GameObjectMover
 
 class MapManager():
     def __init__(self):
         self.loaded_maps = {}
         self.actualMap = None
+        self.game_object_mover = GameObjectMover()
+
+    def update(self, deltatime):
+        self.game_object_mover.update(deltatime)
+        [character.update(deltatime) for character in self.actualMap.get_characters()]
 
     def set_actual_map(self, map_path):
         self.actualMap = self.loaded_maps[map_path]
-        MapAnalyser.gamemap = self.actualMap
+        self.set_all_objects_active(False)
+        [c.set_active(True) for c in self.actualMap.get_characters()]
+
+    def set_all_objects_active(self, active):
+        for map in self.loaded_maps:
+            [c.set_active(active) for c in self.loaded_maps[map].get_characters()]
 
     def load_map(self, map_path, repeat, additional_x, additional_y):
         try:
             self.loaded_maps[map_path]
         except KeyError:
             self.loaded_maps[map_path] = GameMap(map_path, additional_x, additional_y)
+            self.loaded_maps[map_path].set_all_game_object_mover(self.game_object_mover)
+            for i in range(self.loaded_maps[map_path].get_map_width()):
+                for j in range(self.loaded_maps[map_path].get_map_height()):
+                    self.loaded_maps[map_path].get_map_data()[i][j] = MapStereotype.get_replacement_for(self.loaded_maps[map_path].get_map_data()[i][j])
+                    self.loaded_maps[map_path].get_map_data()[i][j].set_collider(MapStereotype.get_collider_for(self.loaded_maps[map_path].get_map_data()[i][j]))
+
             if(self.actualMap is None):
                 self.set_actual_map(map_path)
             # Mon but ici est de charger la carte sur laquelle le joueur se trouve
@@ -36,7 +54,7 @@ class MapManager():
     def get_limited_components(self, player):
         player_position = player.get_map_position() # LA BASE, C'EST LA POSITION DU BOUG
         rectLargeur = 18 # AFFICHER 18 CASES EN LARGEUR
-        rectHauteur = 14 # AFFICHER 12 CASES EN HAUTEUR
+        rectHauteur = 16 # AFFICHER 12 CASES EN HAUTEUR
         startRow = player_position[0] - int(rectLargeur/2) # CENTRER
         startCol = player_position[1] - int(rectHauteur/2) # CENTRER
         all_tiles = []
@@ -50,32 +68,56 @@ class MapManager():
                     all_tiles.append(self.actualMap.get_map_data()[i][j])
                 except IndexError:
                     new_tile = None
-                    if(j > self.actualMap.get_map_height() and self.actualMap.get_adjacent_maps()[0]):
-                        # Carte en bas
-                        map = self.loaded_maps[eval(self.actualMap.get_adjacent_maps()[0])]
-                        new_tile = map.get_map_data()[i][-map.get_map_height()+j]
-                    elif(j < 0 and self.actualMap.get_adjacent_maps()[1]):
-                        # Carte en haut
-                        map = self.loaded_maps[eval(self.actualMap.get_adjacent_maps()[1])]
-                        #print("Value : ("+str(i)+","+str(map.get_map_height()+j)+")")
-                        new_tile = map.get(i,map.get_map_height()+j)
-                    elif(i < 0 and self.actualMap.get_adjacent_maps()[2]):
-                        # Carte à gauche
-                        map = self.loaded_maps[eval(self.actualMap.get_adjacent_maps()[2])]
-                        new_tile = map.get_map_data()[-map.get_map_width()+i][j]
-                    elif(i > self.actualMap.get_map_width() and self.actualMap.get_adjacent_maps()[3]):
-                        # Carte à droite
-                        map = self.loaded_maps[eval(self.actualMap.get_adjacent_maps()[3])]
-                        new_tile = map.get_map_data()[map.get_map_width()+i][j]
+                    try:
+                        if(j > self.actualMap.get_map_height() and self.actualMap.get_adjacent_maps()[0]):
+                            # Carte en bas
+                            map = self.loaded_maps[eval(self.actualMap.get_adjacent_maps()[0])]
+                            new_tile = map.get(i,-map.get_map_height()+j-1)
+                        elif(j < 0 and self.actualMap.get_adjacent_maps()[1]):
+                            # Carte en haut
+                            map = self.loaded_maps[eval(self.actualMap.get_adjacent_maps()[1])]
+                            new_tile = map.get(i,map.get_map_height()+j)
+                        elif(i < 0 and self.actualMap.get_adjacent_maps()[2]):
+                            # Carte à gauche
+                            map = self.loaded_maps[eval(self.actualMap.get_adjacent_maps()[2])]
+                            new_tile = map.get(-map.get_map_width()+i,j)
+                        elif(i > self.actualMap.get_map_width() and self.actualMap.get_adjacent_maps()[3]):
+                            # Carte à droite
+                            map = self.loaded_maps[eval(self.actualMap.get_adjacent_maps()[3])]
+                            new_tile = map.get(map.get_map_width()+i,j)
+                    except:
+                        pass
 
                     # AFFICHAGE DU BACKGROUND REPETABLE
                     if(new_tile is None):
                         new_tile = self.actualMap.repeat[i%2][j%2].copy()
-                        new_tile.set_position(((16 * SCREEN_SCALE * i),(16 * SCREEN_SCALE * j)))
+                        new_tile.set_position(((16 * SCREEN_SCALE * (i + self.actualMap.get_total_excent_x())),(16 * SCREEN_SCALE * (j + self.actualMap.get_total_excent_y()))))
                     
                     all_tiles.append(new_tile)
 
         return all_tiles
+    
+    def get_characters_components(self):
+        return self.actualMap.get_characters_components()
+    
+    def get_characters(self):
+        return self.actualMap.get_characters()
 
     def get_actual_map(self):
         return self.actualMap
+    
+    def set_actual_map_direction(self, direction):
+        self.set_actual_map(eval(self.actualMap.get_adjacent_maps()[direction]))
+        MapAnalyser.set_map_manager(self)
+
+    def get_game_object_mover(self):
+        return self.game_object_mover
+    
+    def get_map(self, direction):
+        try:
+            return self.loaded_maps[eval(self.actualMap.get_adjacent_maps()[direction])]
+        except:
+            return None
+        
+    def get_all_game_objects(self):
+        return self.get_characters()
